@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="SafeGroupRbot - প্রিমিয়াম টেলিগ্রাম গ্রুপ ম্যানেজমেন্ট বট">
+    <title>SafeGroupRbot | প্রিমিয়াম গ্রুপ সুরক্ষা</title>
+    
+    <!-- ফন্ট ও আইকন -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --secondary: #a855f7;
+            --secondary-light: #c084fc;
+            --secondary-glow: rgba(168, 85, 247, 0.4);
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.3);
+            --dark: #050507;
+            --dark-elevated: #0f0f16;
+            --dark-card: rgba(20, 20, 35, 0.7);
+            --dark-card-hover: rgba(30, 30, 50, 0.85);
+            --text: #ffffff;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.3);
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --error-glow: rgba(239, 68, 68, 0.3);
+            --gradient-primary: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+            --gradient-secondary: linear-gradient(135deg, #0ea5e9, #6366f1, #8b5cf6);
+            --gradient-accent: linear-gradient(135deg, #f59e0b, #f97316, #ef4444);
+            --gradient-glow: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.15), rgba(168,85,247,0.1));
+            --gradient-card: linear-gradient(145deg, rgba(30,30,50,0.8), rgba(20,20,35,0.9));
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.3);
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.4);
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.5), 0 8px 10px -6px rgba(0,0,0,0.4);
+            --shadow-lg: 0 25px 50px -12px rgba(0,0,0,0.6), 0 0 60px rgba(99,102,241,0.12);
+            --shadow-glow: 0 0 40px rgba(99,102,241,0.25), 0 0 80px rgba(168,85,247,0.15);
+            --shadow-inner: inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.3);
+            --border: rgba(255,255,255,0.06);
+            --border-hover: rgba(99,102,241,0.35);
+            --border-glow: rgba(139,92,246,0.5);            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.2s ease;
+            --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius: 20px;
+            --radius-lg: 28px;
+            --radius-xl: 40px;
+            --radius-full: 9999px;
+            --blur-sm: blur(8px);
+            --blur: blur(16px);
+            --blur-lg: blur(24px);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /*  IMPROVED LOADING SCREEN - FIXED */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-bottom-color: var(--secondary);
+            animation: loaderSpin 1s linear infinite;
+            position: relative;
+        }
+
+        .loader::before, .loader::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        .loader::before {
+            inset: 6px;
+            border-top-color: var(--accent);
+            animation: loaderSpin 1.5s reverse linear infinite;
+        }
+
+        .loader::after {
+            inset: -6px;
+            border-top-color: var(--success);
+            animation: loaderSpin 2s linear infinite;
+        }
+
+        @keyframes loaderSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .bg-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: -4;
+            overflow: hidden;
+        }
+
+        .bg-base {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 10%, rgba(99,102,241,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 90%, rgba(168,85,247,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(236,72,153,0.04) 0%, transparent 60%);
+            animation: bgPulse 25s ease-in-out infinite;        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.95; transform: scale(1.02); }
+        }
+
+        .bg-mesh {
+            position: absolute;
+            inset: -50%;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(255,255,255,0.02) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(255,255,255,0.02) 50px);
+            animation: meshMove 40s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes meshMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(0.5deg); }
+        }
+
+        .bg-orbs {
+            position: absolute;
+            inset: 0;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.35;
+            animation: orbFloat 22s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(99,102,241,0.5) 0%, transparent 70%);
+            top: -250px; right: -150px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(168,85,247,0.45) 0%, transparent 70%);
+            bottom: -150px; left: 5%;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(236,72,153,0.4) 0%, transparent 70%);
+            top: 45%; right: 15%;
+            animation-delay: -14s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.08); }
+            66% { transform: translate(-30px, 40px) scale(0.95); }
+        }
+
+        .bg-noise {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            opacity: 0.025;
+            pointer-events: none;
+            background-image: 
+                url("image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            animation: noiseShift 0.5s steps(2) infinite;
+        }
+
+        @keyframes noiseShift {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-1px, 1px); }
+            50% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, -1px); }
+        }
+
+        .bg-vignette {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background: 
+                radial-gradient(ellipse at top, rgba(5,5,7,0.85) 0%, transparent 55%),
+                radial-gradient(ellipse at bottom, rgba(5,5,7,0.92) 0%, transparent 50%),
+                radial-gradient(ellipse at center, transparent 40%, rgba(5,5,7,0.4) 100%);
+        }
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            animation: particleJourney linear infinite;
+            box-shadow: 0 0 12px rgba(99,102,241,0.6), 0 0 24px rgba(139,92,246,0.4);
+            will-change: transform, opacity;
+        }
+
+        @keyframes particleJourney {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            8% { opacity: 1; }
+            92% { opacity: 1; }
+            100% {
+                transform: translateY(-20vh) rotate(400deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            z-index: 1000;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 12px rgba(99,102,241,0.6);
+        }
+
+        .scroll-progress::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(99,102,241,0.8);
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem 2.2rem;
+            background: var(--dark-card);
+            backdrop-filter: var(--blur-lg);
+            -webkit-backdrop-filter: var(--blur-lg);
+            border-radius: var(--radius-xl);
+            margin-bottom: 3.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow), var(--shadow-glow);
+            animation: navEnter 0.7s ease forwards;
+            position: sticky;
+            top: 1.2rem;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 0.75rem 1.8rem;
+            background: rgba(20,20,35,0.92);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        @keyframes navEnter {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 800;
+            font-size: 1.45rem;
+            background: var(--gradient-primary);
+            background-size: 220% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;            animation: logoShine 5s linear infinite;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: var(--gradient-primary);
+            border-radius: 22px;
+            opacity: 0.15;
+            filter: blur(12px);
+            z-index: -1;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoShine {
+            to { background-position: 220% center; }
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { opacity: 0.12; }
+            50% { opacity: 0.22; }
+        }
+
+        .logo i {
+            font-size: 1.6rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: iconPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);            font-weight: 500;
+            font-size: 0.97rem;
+            transition: var(--transition-fast);
+            position: relative;
+            padding: 0.5rem 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+            box-shadow: 0 0 10px rgba(99,102,241,0.5);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: var(--gradient-primary);
+            padding: 0.65rem 1.6rem;
+            border-radius: var(--radius-full);
+            color: white !important;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            box-shadow: 0 10px 30px rgba(99,102,241,0.45);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-btn::before {
+            content: '';            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(99,102,241,0.65);
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:active {
+            transform: translateY(-1px) scale(1.01);
+        }
+
+        .nav-btn i {
+            font-size: 1.15rem;
+            transition: var(--transition-fast);
+        }
+
+        .nav-btn:hover i {
+            transform: rotate(8deg) scale(1.1);
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3.5rem;
+            margin-bottom: 4.5rem;
+            padding: 2.5rem 0 3rem;
+            animation: heroFadeIn 0.9s ease forwards;
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 320px;            max-width: 620px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--gradient-glow);
+            padding: 0.55rem 1.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #c7d2fe;
+            margin-bottom: 1.6rem;
+            border: 1px solid rgba(99,102,241,0.45);
+            backdrop-filter: var(--blur-sm);
+            animation: badgeGlow 2.5s ease-in-out infinite;
+            box-shadow: 0 0 25px rgba(99,102,241,0.25);
+        }
+
+        @keyframes badgeGlow {
+            0%, 100% { box-shadow: 0 0 25px rgba(99,102,241,0.25); }
+            50% { box-shadow: 0 0 45px rgba(99,102,241,0.45); }
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.6rem, 5.5vw, 4.3rem);
+            font-weight: 800;
+            line-height: 1.12;
+            margin-bottom: 1.4rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 22%, #c7d2fe 44%, #a5b4fc 66%, #818cf8 88%, #6366f1 100%);
+            background-size: 350% 350%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleFlow 7s ease infinite;
+            text-shadow: 0 5px 35px rgba(0,0,0,0.35);
+            letter-spacing: -0.02em;
+        }
+
+        @keyframes titleFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-desc {
+            color: var(--text-secondary);
+            font-size: 1.18rem;
+            margin-bottom: 2.3rem;            max-width: 540px;
+            line-height: 1.85;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 11px;
+            padding: 1.05rem 2.4rem;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.02rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 12px 35px rgba(99,102,241,0.45);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.32), transparent);
+            transition: left 0.65s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 18px 45px rgba(99,102,241,0.65);
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .btn-secondary {
+            background: var(--dark-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            backdrop-filter: var(--blur-sm);
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark-card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn i {
+            font-size: 1.15rem;
+            transition: var(--transition-fast);
+        }
+
+        .btn:hover i {
+            transform: scale(1.15) rotate(3deg);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        .bot-wrapper {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bot-glow-ring {
+            position: absolute;            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--gradient-secondary);
+            filter: blur(55px);
+            opacity: 0.45;
+            animation: ringPulse 3.5s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.35; transform: scale(1); }
+            50% { opacity: 0.55; transform: scale(1.08); }
+        }
+
+        .bot-spin-ring {
+            position: absolute;
+            width: 105%;
+            height: 105%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            animation: ringSpin 10s linear infinite;
+            z-index: 1;
+        }
+
+        .bot-spin-ring::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            background: var(--gradient-primary) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        @keyframes ringSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .bot-card {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 75px;
+            background: var(--gradient-card);
+            border: 1px solid var(--border);            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 2;
+            animation: botFloat 4.5s ease-in-out infinite;
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            transition: var(--transition);
+            backdrop-filter: var(--blur);
+        }
+
+        .bot-card:hover {
+            transform: translateY(-10px) scale(1.025);
+            border-color: var(--border-hover);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.55), 0 0 80px rgba(99,102,241,0.25);
+        }
+
+        @keyframes botFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+
+        .bot-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%, rgba(255,255,255,0.03) 100%);
+            pointer-events: none;
+        }
+
+        .bot-img {
+            width: 92%;
+            height: 92%;
+            object-fit: cover;
+            border-radius: 65px;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .bot-card:hover .bot-img {
+            transform: scale(1.04);
+        }
+
+        .fallback-icon {
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            background-size: 350% 350%;
+            border-radius: 65px;            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: gradientFlow 6s ease infinite;
+            font-size: 6.5rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-stats {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-stat {
+            position: absolute;
+            padding: 0.45rem 1.1rem;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 600;
+            backdrop-filter: var(--blur-sm);
+            animation: statFloat 7s ease-in-out infinite;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .floating-stat i {
+            font-size: 0.9rem;
+        }
+
+        .floating-stat:nth-child(1) {
+            top: 8%; right: -25px;
+            animation-delay: 0s;
+            background: rgba(16,185,129,0.12);
+            border-color: rgba(16,185,129,0.35);
+            color: #6ee7b7;        }
+
+        .floating-stat:nth-child(2) {
+            bottom: 18%; left: -35px;
+            animation-delay: -2.3s;
+            background: rgba(245,158,11,0.12);
+            border-color: rgba(245,158,11,0.35);
+            color: #fcd34d;
+        }
+
+        .floating-stat:nth-child(3) {
+            top: 62%; right: -45px;
+            animation-delay: -4.6s;
+            background: rgba(236,72,153,0.12);
+            border-color: rgba(236,72,153,0.35);
+            color: #f9a8d4;
+        }
+
+        @keyframes statFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(2.5deg); }
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 4.5rem 0 3.2rem;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+            animation: lineGlow 2.5s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(99,102,241,0.6);
+        }
+
+        @keyframes lineGlow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 15px rgba(99,102,241,0.6); }
+            50% { opacity: 0.75; box-shadow: 0 0 30px rgba(99,102,241,0.9); }
+        }
+
+        .section-title h2 {
+            font-size: clamp(1.9rem, 4.2vw, 2.7rem);            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #e2e8f0, #c7d2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.6rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 65%;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            opacity: 0.55;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            margin-top: 1.2rem;
+            font-size: 1.12rem;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .special-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4.5rem;
+        }
+
+        .special-card {
+            background: var(--dark-card);
+            backdrop-filter: var(--blur-lg);
+            -webkit-backdrop-filter: var(--blur-lg);
+            border-radius: var(--radius-lg);
+            padding: 2.1rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;            overflow: hidden;
+            animation: cardEnter 0.7s ease forwards;
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        .special-card:nth-child(1) { animation-delay: 0.1s; }
+        .special-card:nth-child(2) { animation-delay: 0.18s; }
+        .special-card:nth-child(3) { animation-delay: 0.26s; }
+        .special-card:nth-child(4) { animation-delay: 0.34s; }
+        .special-card:nth-child(5) { animation-delay: 0.42s; }
+        .special-card:nth-child(6) { animation-delay: 0.5s; }
+        .special-card:nth-child(7) { animation-delay: 0.58s; }
+        .special-card:nth-child(8) { animation-delay: 0.66s; }
+
+        @keyframes cardEnter {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .special-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-glow);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
+            border-radius: inherit;
+        }
+
+        .special-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .special-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+        }
+
+        .special-card:hover::before { opacity: 1; }
+        .special-card:hover::after { opacity: 1; }
+
+        .special-card > * { position: relative; z-index: 1; }
+        .special-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            color: white;
+            margin-bottom: 1.4rem;
+            box-shadow: 0 10px 30px rgba(99,102,241,0.45);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .special-icon::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 22px;
+            background: var(--gradient-primary);
+            opacity: 0.3;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .special-card:hover .special-icon {
+            transform: scale(1.12) rotate(4deg);
+            box-shadow: 0 15px 40px rgba(99,102,241,0.65);
+        }
+
+        .special-card h3 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .special-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.3rem;
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: rgba(99,102,241,0.18);            padding: 0.18rem 0.55rem;
+            border-radius: 8px;
+            color: #a5b4fc;
+            font-weight: 500;
+            border: 1px solid rgba(99,102,241,0.35);
+            display: inline;
+        }
+
+        .example-special {
+            background: rgba(12,12,22,0.7);
+            border-radius: 16px;
+            padding: 1.1rem 1.3rem;
+            font-size: 0.93rem;
+            border-left: 3px solid var(--accent);
+            border-top: 1px solid var(--border);
+        }
+
+        .example-special strong { color: var(--text-primary); }
+
+        .cmd {
+            background: rgba(25,25,42,0.9);
+            padding: 0.28rem 0.65rem;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.84rem;
+            color: #fbbf24;
+            display: inline-block;
+            margin: 0.12rem 0;
+            border: 1px solid rgba(245,158,11,0.25);
+            font-weight: 500;
+        }
+
+        .other-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.1rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .other-card {
+            background: var(--dark-card);
+            backdrop-filter: var(--blur);
+            border-radius: 22px;
+            padding: 1.4rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .other-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99,102,241,0.04), transparent);
+            opacity: 0;
+            transition: var(--transition);
+            border-radius: inherit;
+        }
+
+        .other-card:hover {
+            background: var(--dark-card-hover);
+            transform: translateX(7px) translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow);
+        }
+
+        .other-card:hover::before { opacity: 1; }
+
+        .other-header {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 11px;
+        }
+
+        .other-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(99,102,241,0.35);
+            transition: var(--transition-fast);
+        }
+
+        .other-card:hover .other-icon {
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 8px 22px rgba(99,102,241,0.5);
+        }
+
+        .other-header h4 {
+            font-size: 1.18rem;
+            font-weight: 600;
+            color: var(--text-primary);        }
+
+        .other-desc {
+            font-size: 0.94rem;
+            color: var(--text-secondary);
+            margin-bottom: 11px;
+            line-height: 1.65;
+        }
+
+        .example-box {
+            background: rgba(12,12,22,0.65);
+            border-radius: 14px;
+            padding: 0.75rem 1rem;
+            font-size: 0.87rem;
+            border-left: 3px solid var(--accent);
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .example-box i { color: var(--accent); font-size: 0.9rem; }
+
+        .channel-section {
+            background: linear-gradient(135deg, rgba(25,25,45,0.85), rgba(35,35,60,0.7));
+            border-radius: var(--radius-lg);
+            padding: 2.8rem;
+            text-align: center;
+            margin: 4.5rem 0;
+            border: 1px solid var(--border);
+            backdrop-filter: var(--blur-lg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .channel-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-glow);
+            opacity: 0.55;
+            z-index: 0;
+            animation: sectionGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes sectionGlow {
+            0%, 100% { opacity: 0.45; }
+            50% { opacity: 0.65; }
+        }
+        .channel-section > * { position: relative; z-index: 1; }
+
+        .channel-section i {
+            font-size: 3.2rem;
+            color: #818cf8;
+            margin-bottom: 1.2rem;
+            animation: iconBounce 3.5s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-12px) scale(1.08); }
+        }
+
+        .channel-section h3 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 0.6rem 0 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .channel-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1.7rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.75;
+        }
+
+        .channel-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            background: var(--dark-card);
+            padding: 0.85rem 2.2rem;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            margin: 1.1rem 0;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            backdrop-filter: var(--blur-sm);
+        }
+
+        .channel-link:hover {
+            background: var(--dark-card-hover);
+            transform: scale(1.04);            border-color: var(--border-hover);
+            box-shadow: var(--shadow);
+        }
+
+        .channel-link i {
+            font-size: 1.35rem;
+            color: #60a5fa;
+            transition: var(--transition-fast);
+        }
+
+        .channel-link:hover i {
+            transform: scale(1.15);
+        }
+
+        .tip-box {
+            background: rgba(12,12,22,0.75);
+            border-radius: 22px;
+            padding: 1.4rem;
+            font-size: 0.97rem;
+            text-align: left;
+            margin-top: 1.7rem;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--success);
+            line-height: 1.8;
+        }
+
+        .tip-box strong { color: #6ee7b7; }
+
+        .feature-counter {
+            text-align: center;
+            margin: 2.2rem 0 3.5rem;
+            padding: 1.1rem 2.3rem;
+            background: var(--dark-card);
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.9rem;
+            font-size: 1rem;
+            backdrop-filter: var(--blur-sm);
+            animation: counterPulse 2.5s ease-in-out infinite;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @keyframes counterPulse {
+            0%, 100% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(99,102,241,0.25); }
+            50% { box-shadow: var(--shadow-sm), 0 0 0 15px rgba(99,102,241,0); }
+        }
+
+        .feature-counter strong {            color: #818cf8;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4.5rem;
+            padding-top: 2.8rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.8;
+        }
+
+        footer i {
+            color: #818cf8;
+            margin-right: 0.5rem;
+            animation: heartPulse 1.8s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+        }
+
+        footer span {
+            display: block;
+            margin-top: 0.7rem;
+            font-size: 0.88rem;
+            opacity: 0.85;
+        }
+
+        footer .copyright {
+            margin-top: 0.8rem;
+            opacity: 0.65;
+            font-size: 0.82rem;
+        }
+
+        @media (max-width: 960px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-content { max-width: 100%; }
+            .hero-desc { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .bot-wrapper { width: 280px; height: 280px; }
+            .bot-card { width: 250px; height: 250px; }            .special-grid, .other-grid { grid-template-columns: 1fr; }
+            .navbar { padding: 0.9rem 1.5rem; }
+            .nav-links { gap: 1.3rem; justify-content: center; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 1rem; }
+            .navbar {
+                padding: 0.8rem 1.2rem;
+                border-radius: var(--radius-lg);
+                margin-bottom: 2.5rem;
+            }
+            .logo { font-size: 1.3rem; }
+            .nav-links { gap: 0.9rem; font-size: 0.9rem; }
+            .nav-btn { padding: 0.55rem 1.3rem; font-size: 0.9rem; }
+            .hero-content h1 { font-size: 2.4rem; }
+            .hero-desc { font-size: 1.05rem; }
+            .btn { padding: 0.95rem 2rem; font-size: 0.97rem; }
+            .bot-wrapper { width: 240px; height: 240px; }
+            .bot-card { width: 210px; height: 210px; border-radius: 60px; }
+            .fallback-icon { font-size: 4.5rem; }
+            .special-card, .other-card { padding: 1.6rem; }
+            .channel-section { padding: 2.2rem 1.6rem; }
+            .section-title h2 { font-size: 2rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary-light);
+            outline-offset: 2px;
+        }
+
+        ::selection {
+            background: rgba(99,102,241,0.35);
+            color: white;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.45);
+            transform: scale(0);
+            animation: rippleAnim 0.65s ease-out;            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to {
+                transform: scale(4.5);
+                opacity: 0;
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .animate-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            padding: 0.45rem 0.85rem;
+            background: var(--dark-elevated);
+            color: var(--text);
+            font-size: 0.82rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        [data-tooltip]:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }    </style>
+</head>
+<body>
+<!-- 🚀 FIXED LOADING SCREEN -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loader"></div>
+</div>
+
+<div class="bg-wrapper">
+    <div class="bg-base"></div>
+    <div class="bg-mesh"></div>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+</div>
+<div class="bg-noise"></div>
+<div class="bg-vignette"></div>
+<div class="particles" id="particles"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="container">
+    <nav class="navbar" id="navbar">
+        <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <i class="fas fa-shield-halved"></i>
+            <span>SafeGroupRbot</span>
+        </div>
+        <div class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> হোম</a>
+            <a href="#special"><i class="fas fa-star"></i> বিশেষ ফিচার</a>
+            <a href="#other"><i class="fas fa-sliders"></i> অন্যান্য</a>
+            <a href="https://t.me/alorhawa" target="_blank" data-tooltip="আপডেট ও সাপোর্ট">
+                <i class="fab fa-telegram"></i> আপডেট
+            </a>
+            <a href="https://t.me/SafeGroupRbot?startgroup=true" class="nav-btn" data-ripple>
+                <i class="fas fa-plus-circle"></i> গ্রুপে যোগ
+            </a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-bolt"></i>
+                <span>⚡ প্রো-লেভেল অটোমেশন</span>
+            </div>
+            <h1>গ্রুপ সুরক্ষার <br>সম্পূর্ণ প্রিমিয়াম সমাধান</h1>
+            <p class="hero-desc">
+                অটো মডারেশন, অ্যান্টি-স্প্যাম, স্মার্ট ওয়ার্নিং, ট্যাগ অল, নোটস, AFK —                 ৩৮টি প্রিমিয়াম ফিচার একটি বটে। ২৪/৭ আপনার গ্রুপের AI পাওয়ার্ড প্রহরী।
+            </p>
+            <div class="hero-buttons">
+                <a href="https://t.me/SafeGroupRbot?startgroup=true" class="btn btn-primary" data-ripple>
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>গ্রুপে যুক্ত করুন</span>
+                </a>
+                <a href="https://t.me/alorhawa" class="btn btn-secondary" data-ripple>
+                    <i class="fas fa-bell"></i>
+                    <span>@alorhawa</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-image">
+            <div class="bot-wrapper">
+                <div class="bot-glow-ring"></div>
+                <div class="bot-spin-ring"></div>
+                <div class="floating-stats">
+                    <div class="floating-stat"><i class="fas fa-check-circle"></i> ২৪/৭ অ্যাক্টিভ</div>
+                    <div class="floating-stat"><i class="fas fa-shield"></i> অ্যান্টি-স্প্যাম</div>
+                    <div class="floating-stat"><i class="fas fa-brain"></i> AI পাওয়ার্ড</div>
+                </div>
+                <div class="bot-card" id="botCard">
+                    <img class="bot-img" id="botImg" src="https://i.ibb.co/DfYyXTN0/1409.png" alt="SafeGroupRbot" onerror="handleImageError()">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-title" id="special">
+        <h2>🌟 বিশেষ প্রিমিয়াম ফিচার</h2>
+        <p>আপনার গ্রুপকে করে তুলুন আরও স্মার্ট, সুরক্ষিত এবং প্রফেশনাল</p>
+    </section>
+
+    <div class="special-grid">
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-user-pen"></i></div>
+            <h3>📝 নাম/ইউজারনেম চেঞ্জ নোটিফিকেশন</h3>
+            <p class="special-desc">
+                কোনো সদস্য তার <span class="highlight">নাম (First/Last Name)</span> বা 
+                <span class="highlight">ইউজারনেম</span> পরিবর্তন করলে বট সাথে সাথে 
+                গ্রুপে রিয়েল-টাইম নোটিফিকেশন পাঠায়। আগের ও বর্তমান নাম উভয়ই দেখায়।
+            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> "রাহিম" → "রাহিম আহমেদ" হলে: 
+                <span class="cmd">"🔄 নাম পরিবর্তন: রাহিম → রাহিম আহমেদ"</span>
+            </div>
+        </article>
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-door-open"></i></div>
+            <h3>🚪 স্মার্ট জয়েন/লেফট ক্লিনার</h3>
+            <p class="special-desc">
+                টেলিগ্রামের ডিফল্ট <span class="cmd">"joined/left the group"</span> 
+                মেসেজগুলো বট <span class="highlight">AI-পাওয়ার্ড ডিটেকশন</span> দিয়ে 
+                স্বয়ংক্রিয়ভাবে ডিলিট করে। গ্রুপের চ্যাট ক্লিন রাখুন।
+            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> কেউ জয়েন করলে → 
+                <span class="cmd">"🧹 অটো-ক্লিন: সিস্টেম মেসেজ রিমুভড"</span>
+            </div>
+        </article>
+
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-user-shield"></i></div>
+            <h3>👤 প্রোফাইল লিংক সিকিউরিটি</h3>
+            <p class="special-desc">
+                কারো নাম বা বায়োতে স্প্যাম/ম্যালিশিয়াস লিংক থাকলে বট 
+                <span class="highlight">অটো-স্ক্যান</span> করে স্বয়ংক্রিয়ভাবে মিউট/ওয়ার্ন করে।
+            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> 
+                <span class="cmd">/setlinkmute 30m</span> → সন্দেহজনক প্রোফাইলে ৩০ মিনিট মিউট
+            </div>
+        </article>
+
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-robot"></i></div>
+            <h3>🤖 AI অ্যান্টি-বট সিস্টেম</h3>
+            <p class="special-desc">
+                সাধারণ মেম্বার অন্য বট এড করলেই <span class="highlight">অটো-ব্যান</span>। 
+                <span class="cmd">/cleandeleted</span> দিয়ে ডিলিট অ্যাকাউন্ট রিমুভ।
+            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> @spam_bot এড করলে → 
+                <span class="cmd">"🚫 অটো-ব্যান: অননুমোদিত বট"</span>
+            </div>
+        </article>
+
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-hourglass-end"></i></div>
+            <h3>⏱ স্মার্ট টাইমড প্যানিশমেন্ট</h3>
+            <p class="special-desc">
+                নির্দিষ্ট সময়ের জন্য ব্যান/মিউট। সময় শেষে 
+                <span class="highlight">অটো-আনব্যান</span> + মেম্বারকে নোটিফিকেশন।            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> 
+                <span class="cmd">/ban @user 2h</span> → ২ ঘণ্টা ব্যান, পরে অটো রিলিজ
+            </div>
+        </article>
+
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-triangle-exclamation"></i></div>
+            <h3>⚠️ AI ওয়ার্নিং ম্যানেজমেন্ট</h3>
+            <p class="special-desc">
+                নির্ধারিত সীমা পার হলে অটো ব্যান। 
+                <span class="highlight">ওয়ার্নিং হিস্ট্রি</span> + অ্যাডমিন নোটিফিকেশন।
+            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> 
+                <span class="cmd">/setwarnlimit 3</span> → ৩ ওয়ার্নিংয়ে অটো ব্যান + লগ
+            </div>
+        </article>
+
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-moon-stars"></i></div>
+            <h3>🌙 স্মার্ট নাইট মোড</h3>
+            <p class="special-desc">
+                রাতের নির্দিষ্ট সময়ে গ্রুপ অটো-লক, সকালে আনলক। 
+                <span class="highlight">কাস্টম সময়</span> + উইকেন্ড সেটিংস।
+            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> 
+                <span class="cmd">/setautolock 23 06</span> → রাত ১১টা → সকাল ৬টা লক
+            </div>
+        </article>
+
+        <article class="special-card">
+            <div class="special-icon"><i class="fas fa-bullhorn"></i></div>
+            <h3>📢 স্মার্ট ট্যাগ অল</h3>
+            <p class="special-desc">
+                শুধু অ্যাডমিনরা সব সদস্যকে একসাথে মেনশন। 
+                <span class="highlight">রেট-লিমিট</span> + স্প্যাম প্রটেকশন।
+            </p>
+            <div class="example-special">
+                <i class="fas fa-lightbulb"></i> 
+                <strong>উদাহরণ:</strong> 
+                <span class="cmd">/tagall 📢 জরুরি নোটিশ</span> → সবাইকে মেনশন (৫ মিনিট কুলডাউন)
+            </div>
+        </article>
+    </div>
+    <section class="section-title" id="other">
+        <h2>🔧 ৩০+ অ্যাডভান্সড ফিচার</h2>
+        <p>প্রতিদিনের গ্রুপ ম্যানেজমেন্টের জন্য প্রফেশনাল টুলস — বিস্তারিত কন্ট্রোলসহ</p>
+    </section>
+
+    <div class="other-grid">
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-link-slash"></i></div>
+                <h4>🔗 AI লিংক প্রটেকশন</h4>
+            </div>
+            <p class="other-desc">ম্যালিশিয়াস/স্প্যাম লিংক অটো-ডিটেক্ট + ডিলিট। হোয়াইটলিস্ট সাপোর্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/locklinks</span> → অটো-ফিল্টার অন</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-image-slash"></i></div>
+                <h4>📸 স্মার্ট মিডিয়া লক</h4>
+            </div>
+            <p class="other-desc">ছবি/ভিডিও/জিফ/স্টিকার আলাদা আলাদা লক/আনলক। পারমিশন বেসড।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/lock photo video</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-filter-circle-xmark"></i></div>
+                <h4>🚫 অ্যাডভান্সড ফিল্টার</h4>
+            </div>
+            <p class="other-desc">খারাপ শব্দ, ইমোজি, স্প্যাম প্যাটার্ন — কাস্টম রেগুলার এক্সপ্রেশন সাপোর্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/addfilter xxx|spam</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-share-slash"></i></div>
+                <h4>🔄 ফরওয়ার্ড ব্লক</h4>
+            </div>
+            <p class="other-desc">অন্য গ্রুপ/চ্যানেল থেকে ফরওয়ার্ড মেসেজ ব্লক। ভেরিফাইড চ্যানেল এক্সেপশন।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/lockforward</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-file-shield"></i></div>
+                <h4>📁 ফাইল সিকিউরিটি</h4>
+            </div>
+            <p class="other-desc">ডকুমেন্ট, পিডিএফ, এক্সেকিউটেবল ফাইল ব্লক। ফাইল টাইপ বেসড ফিল্টার।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/lockfiles exe apk</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-pen-to-square"></i></div>                <h4>✏️ অ্যান্টি-এডিট ট্র্যাকার</h4>
+            </div>
+            <p class="other-desc">মেসেজ এডিট করলে অটো নোটিফিকেশন + লগ। অ্যাডমিন এক্সেপশন।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/logedits on</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-message-bot"></i></div>
+                <h4>💬 AI অটো-রিপ্লাই</h4>
+            </div>
+            <p class="other-desc">কীওয়ার্ড/ইনটেন্ট বেসড স্বয়ংক্রিয় উত্তর। মাল্টি-লেঙ্গুয়েজ সাপোর্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/addreply হ্যালো|আসসালামু আলাইকুম</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-scroll"></i></div>
+                <h4>📜 ডাইনামিক রুলস</h4>
+            </div>
+            <p class="other-desc"><span class="cmd">/rules</span> দিয়ে ইন্টারেক্টিভ রুলস প্যানেল। বাটন + ইমেজ সাপোর্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/setrules [আপনার নিয়ম]</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-note-sticky"></i></div>
+                <h4>📝 স্মার্ট নোটস</h4>
+            </div>
+            <p class="other-desc">গুরুত্বপূর্ণ বার্তা সংরক্ষণ। হ্যাশট্যাগ + ক্যাটাগরি + সার্চ সাপোর্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/save নিয়ম</span> → <span class="cmd">#নিয়ম</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-person-walking-arrow-loop-left"></i></div>
+                <h4>💤 AFK সিস্টেম</h4>
+            </div>
+            <p class="other-desc">ব্যস্ত থাকলে অটো-রিপ্লাই। টাইমার + কাস্টম মেসেজ + স্ট্যাটাস ট্র্যাকিং।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/afk খেতে গিয়েছি, 30min</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-fingerprint"></i></div>
+                <h4>🆔 অ্যাডভান্সড আইডি</h4>
+            </div>
+            <p class="other-desc"><span class="cmd">/id</span> দিয়ে ইউজার/গ্রুপ/মেসেজ আইডি + মেটাডেটা। JSON এক্সপোর্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/id @user</span> → বিস্তারিত তথ্য</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-circle-info"></i></div>
+                <h4>👤 ডিটেইল্ড ইউজার ইনফো</h4>
+            </div>            <p class="other-desc">নাম, ইউজারনেম, প্রোফাইল, জয়েন ডেট, অ্যাক্টিভিটি স্কোর — সব এক জায়গায়।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/info</span> (রিপ্লাই) → ফুল প্রোফাইল</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-chart-simple"></i></div>
+                <h4>🏆 অ্যাক্টিভিটি অ্যানালিটিক্স</h4>
+            </div>
+            <p class="other-desc">টপ অ্যাক্টিভ/ইনঅ্যাক্টিভ মেম্বার। মেসেজ কাউন্ট + টাইমলাইন + এক্সপোর্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/active</span> → টপ ১০ লিডারবোর্ড</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-door-closed"></i></div>
+                <h4>🚪 কাস্টম ওয়েলকাম/গুডবাই</h4>
+            </div>
+            <p class="other-desc">গ্রুপে জয়েন/লেফট করলে কাস্টম মেসেজ + বাটন + ইমেজ। মাল্টি-টেমপ্লেট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/setwelcome [মেসেজ]</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-link"></i></div>
+                <h4>🔗 স্মার্ট লিংক ম্যানেজার</h4>
+            </div>
+            <p class="other-desc">প্রাইভেট/পাবলিক/ইনভাইট লিংক জেনারেট + রিভোক + এক্সপায়ারি টাইমার।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/link 24h</span> → ২৪ ঘণ্টার লিংক</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-thumbtack"></i></div>
+                <h4>📌 অ্যাডভান্সড পিন</h4>
+            </div>
+            <p class="other-desc">মেসেজ পিন/আনপিন + পিন হিস্ট্রি + অটো-আনপিন টাইমার + নোটিফিকেশন।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/pin 2h</span> → ২ ঘণ্টার জন্য পিন</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-trash-can"></i></div>
+                <h4>🗑️ স্মার্ট ডিলিট</h4>
+            </div>
+            <p class="other-desc">যেকোনো মেসেজ ডিলিট + বাল্ক ডিলিট + ফিল্টার বেসড ডিলিট + লগ।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/del 50</span> → শেষ ৫০ মেসেজ ডিলিট</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-user-crown"></i></div>
+                <h4>👑 প্রোমোট/ডিমোট</h4>
+            </div>
+            <p class="other-desc">অ্যাডমিন ম্যানেজমেন্ট + পারমিশন কন্ট্রোল + অ্যাক্টিভিটি লগ + ব্যাচ প্রসেস।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/promote @user admin</span></div>        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-check-double"></i></div>
+                <h4>✅ অটো অ্যাপ্রুভাল</h4>
+            </div>
+            <p class="other-desc">জয়েন রিকোয়েস্ট অটো অ্যাপ্রুভ + ফিল্টার + কাস্টম মেসেজ + লিমিট কন্ট্রোল।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/autoapprove on</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-ghost"></i></div>
+                <h4>👻 স্টেলথ মোড</h4>
+            </div>
+            <p class="other-desc">প্যানিশমেন্ট মেসেজ হাইড + অ্যাডমিন-অনলি লগ + প্রাইভেট নোটিফিকেশন।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/ghostmode on</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-user-secret"></i></div>
+                <h4>🕵️ অ্যানোনিমাস অ্যাডমিন</h4>
+            </div>
+            <p class="other-desc">বেনামী অ্যাডমিনদের চিনুন + পারমিশন ভেরিফিকেশন + সিকিউরিটি অ্যালার্ট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/checkanon</span> → ভেরিফাই</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-tower-broadcast"></i></div>
+                <h4>📢 চ্যানেল ফরওয়ার্ড ব্লক</h4>
+            </div>
+            <p class="other-desc">চ্যানেল থেকে ফরওয়ার্ড মেসেজ ব্লক + ভেরিফাইড চ্যানেল এক্সেপশন + লগ।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/lockchforward</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-bell"></i></div>
+                <h4>🔔 স্মার্ট নোটিফিকেশন</h4>
+            </div>
+            <p class="other-desc">পিন/ব্যান/মিউট ইভেন্টে অ্যাডমিন নোটিফিকেশন + কাস্টম চ্যানেল + ফরম্যাট।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/notify ban @adminchannel</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-sliders"></i></div>
+                <h4>🔊 গ্র্যানুলার পারমিশন</h4>
+            </div>
+            <p class="other-desc">ইউজার/রোল বেসড মিডিয়া/কমান্ড পারমিশন। ডাইনামিক অ্যাক্সেস কন্ট্রোল।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/permit @user photo video</span></div>
+        </div>
+        <div class="other-card">            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-language"></i></div>
+                <h4>🌐 মাল্টি-ল্যাঙ্গুয়েজ</h4>
+            </div>
+            <p class="other-desc">বাংলা, ইংরেজি, হিন্দি — অটো-ডিটেক্ট + ম্যানুয়াল সেট + কাস্টম ট্রান্সলেশন।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/lang bn</span> → বাংলা সেট</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-gear"></i></div>
+                <h4>⚙️ প্রিমিয়াম সেটিংস প্যানেল</h4>
+            </div>
+            <p class="other-desc">সব ফিচারের ইন্টারেক্টিভ কন্ট্রোল প্যানেল। বাটন + সার্চ + ব্যাকআপ/রিস্টোর।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/settings</span> → GUI প্যানেল</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-shield-halved"></i></div>
+                <h4>🛡️ অ্যান্টি-রেইড</h4>
+            </div>
+            <p class="other-desc">হঠাৎ মাল্টিপল জয়েন ডিটেক্ট + অটো-লক + অ্যাডমিন অ্যালার্ট + ব্যাকআপ।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/antiraids on</span></div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-database"></i></div>
+                <h4>💾 ডেটা ব্যাকআপ</h4>
+            </div>
+            <p class="other-desc">সেটিংস, নোটস, ফিল্টার — অটো ব্যাকআপ + ম্যানুয়াল এক্সপোর্ট + ক্লাউড সিঙ্ক।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/backup</span> → JSON ডাউনলোড</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-bolt"></i></div>
+                <h4>⚡ পারফরম্যান্স অপ্টিমাইজ</h4>
+            </div>
+            <p class="other-desc">বড় গ্রুপের জন্য ক্যাশিং + কুয়েরি অপ্টিমাইজেশন + লো-লেটেন্সি মোড।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/optimize on</span> → ফাস্ট মোড</div>
+        </div>
+        <div class="other-card">
+            <div class="other-header">
+                <div class="other-icon"><i class="fas fa-heart"></i></div>
+                <h4>❤️ কমিউনিটি ফিচার</h4>
+            </div>
+            <p class="other-desc">পোল, কুইজ, ইভেন্ট, রিমাইন্ডার — গ্রুপ এনগেজমেন্ট বাড়ানোর টুলস।</p>
+            <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/poll "প্রশ্ন?" "অপশন1|অপশন2"</span></div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 2.2rem 0;">        <div class="feature-counter">
+            <i class="fas fa-list-check"></i>
+            <span>মোট ফিচার: <strong>৮টি প্রিমিয়াম</strong> + <strong>৩০টি অ্যাডভান্সড</strong> = <strong>৩৮টি ফিচার</strong> ✨</span>
+        </div>
+    </div>
+
+    <section class="channel-section">
+        <i class="fas fa-bell"></i>
+        <h3>📢 অফিসিয়াল আপডেট চ্যানেল</h3>
+        <p>নতুন ফিচার, টিউটোরিয়াল, সার্ভার আপডেট ও ২৪/৭ সাপোর্ট পেতে যুক্ত থাকুন:</p>
+        <a href="https://t.me/alorhawa" class="channel-link" target="_blank">
+            <i class="fab fa-telegram"></i>
+            <span>@alorhawa - এ যোগ দিন</span>
+        </a>
+        <div class="tip-box">
+            <strong>💡 দ্রুত শুরু করার গাইড:</strong><br><br>
+            <strong>ধাপ ১:</strong> বটকে আপনার গ্রুপে <strong>অ্যাডমিন</strong> হিসেবে যুক্ত করুন (সব পারমিশন দিন)<br>
+            <strong>ধাপ ২:</strong> গ্রুপে <span class="cmd">/settings</span> লিখুন → ইন্টারেক্টিভ প্যানেল থেকে ফিচার কনফিগার করুন<br>
+            <strong>ধাপ ৩:</strong> <span class="cmd">/help</span> দিয়ে সব কমান্ড দেখুন + <span class="cmd">/support</span> এ হেল্প নিন
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <i class="fas fa-shield-heart"></i> 
+            <strong>SafeGroupRbot</strong> — আপনার গ্রুপের ২৪/৭ AI পাওয়ার্ড অভিভাবক
+        </div>
+        <span>🇧🇩 বাংলা | 🇬🇧 English | 🇮🇳 हिन्दी — ৩ ভাষায় ফুল সাপোর্ট</span>
+        <span class="copyright">© 2026 SafeGroupRbot • সম্পূর্ণ ফ্রি • ওপেন সোর্স ফ্রেন্ডলি</span>
+    </footer>
+</div>
+
+<script>
+    // 🚀 FIXED: Multiple fallback methods to hide loading screen
+    function hideLoadingScreen() {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+            loadingScreen.classList.add('hidden');
+            // Remove from DOM after transition
+            setTimeout(() => {
+                if (loadingScreen.parentNode) {
+                    loadingScreen.parentNode.removeChild(loadingScreen);
+                }
+            }, 500);
+        }
+    }
+
+    // Method 1: DOMContentLoaded - fires when HTML is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(hideLoadingScreen, 500);    });
+
+    // Method 2: Load event - fires when all resources are loaded
+    window.addEventListener('load', function() {
+        setTimeout(hideLoadingScreen, 800);
+    });
+
+    // Method 3: Timeout fallback - guaranteed to fire after 3 seconds max
+    setTimeout(function() {
+        hideLoadingScreen();
+    }, 3000);
+
+    // Method 4: RequestAnimationFrame for smooth rendering
+    requestAnimationFrame(function() {
+        setTimeout(hideLoadingScreen, 1000);
+    });
+
+    // Image error handler
+    function handleImageError() {
+        const container = document.getElementById('botCard');
+        if (container) {
+            container.innerHTML = `<div class="fallback-icon"><i class="fas fa-shield-halved"></i></div>`;
+        }
+    }
+    
+    const botImg = document.getElementById('botImg');
+    if (botImg) botImg.onerror = handleImageError;
+
+    // Create particles
+    function createPremiumParticles() {
+        const container = document.getElementById('particles');
+        if (!container) return;
+        
+        const count = 70;
+        
+        for (let i = 0; i < count; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            
+            const duration = Math.random() * 30 + 20;
+            const delay = Math.random() * 15;
+            particle.style.animationDuration = duration + 's';
+            particle.style.animationDelay = delay + 's';
+            
+            const hue = Math.random() * 60 + 220;            particle.style.background = `hsl(${hue}, 85%, 68%)`;
+            
+            container.appendChild(particle);
+        }
+    }
+    createPremiumParticles();
+
+    // Button ripple effect
+    document.querySelectorAll('[data-ripple]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+            
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 650);
+        });
+    });
+
+    // Scroll progress + navbar effect
+    window.addEventListener('scroll', () => {
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        const progress = document.getElementById('scrollProgress');
+        if (progress) {
+            progress.style.width = scrollPercent + '%';
+        }
+        
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+            if (window.scrollY > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+    }, { passive: true });
+
+    // Scroll animation trigger
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.special-card, .other-card').forEach(card => {
+        card.classList.add('animate-on-scroll');
+        observer.observe(card);
+    });
+
+    // Mouse follow particles (desktop)
+    if (window.innerWidth > 900) {
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            particles.forEach((particle, index) => {
+                const pX = parseFloat(particle.style.left) / 100 || 0.5;
+                const pY = parseFloat(particle.style.top) / 100 || 0.5;
+                
+                const dx = mouseX - pX;
+                const dy = mouseY - pY;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                
+                if (dist < 0.25) {
+                    const force = (0.25 - dist) * 60;
+                    const angle = Math.atan2(dy, dx);
+                    
+                    const curX = parseFloat(particle.style.left) || 50;
+                    const curY = parseFloat(particle.style.top) || 50;
+                    
+                    particle.style.left = (curX - Math.cos(angle) * force) + '%';
+                    particle.style.top = (curY - Math.sin(angle) * force) + '%';
+                }
+            });
+        });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {        if (e.key === 'Escape') document.activeElement?.blur();
+    });
+
+    // Initial animation setup
+    document.addEventListener('DOMContentLoaded', () => {
+        // Floating stat delay
+        document.querySelectorAll('.floating-stat').forEach((stat, i) => {
+            stat.style.animationDelay = `-${i * 2.3}s`;
+        });
+        
+        // Card delay reset
+        setTimeout(() => {
+            document.querySelectorAll('.special-card').forEach((card, i) => {
+                card.style.animationDelay = `${0.1 + i * 0.08}s`;
+            });
+        }, 400);
+    });
+
+    // Performance: throttle handler
+    let scrollTimeout, resizeTimeout;
+    
+    const throttledScroll = () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            // Heavy operations here
+        }, 100);
+    };
+    
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+    
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Resize handling
+        }, 150);
+    }, { passive: true });
+
+    // Error handling - hide loading screen even if there's an error
+    window.addEventListener('error', function() {
+        setTimeout(hideLoadingScreen, 100);
+    });
+    
+    window.addEventListener('unhandledrejection', function() {
+        setTimeout(hideLoadingScreen, 100);
+    });
+</script>
+</body>
+</html>
