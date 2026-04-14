@@ -1056,13 +1056,16 @@
         .other-card {
             background: var(--dark-card);
             backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
             border-radius: 22px;
             padding: 1.4rem;
             border: 1px solid var(--border);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            transform: translateZ(0);
         }
+        .other-card > * { position: relative; z-index: 1; }
         .other-card::before {
             content: '';
             position: absolute;
@@ -1075,7 +1078,7 @@
 
         .other-card:hover {
             background: var(--dark-card-hover);
-            transform: translateX(7px) translateY(-5px);
+            transform: translateX(7px) translateY(-5px) translateZ(0);
             border-color: var(--border-hover);
             box-shadow: var(--shadow);
         }
@@ -1374,13 +1377,14 @@
 
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(35px);
+            transform: translateY(35px) translateZ(0);
             transition: opacity 0.7s ease, transform 0.7s ease;
+            will-change: opacity, transform;
         }
 
         .animate-on-scroll.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0);
         }
 
         [data-tooltip] {
@@ -1970,7 +1974,7 @@
         const container = document.getElementById('particles');
         if (!container) return;
         
-        const count = 70;
+        const count = window.innerWidth < 768 ? 25 : 70;
         
         for (let i = 0; i < count; i++) {
             const particle = document.createElement('div');
