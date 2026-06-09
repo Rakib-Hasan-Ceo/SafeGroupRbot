@@ -1018,16 +1018,27 @@
             display: inline;
         }
 
-        .example-special {
+        .how-to-box {
             background: rgba(12,12,22,0.7);
             border-radius: 16px;
             padding: 1.1rem 1.3rem;
             font-size: 0.93rem;
             border-left: 3px solid var(--accent);
             border-top: 1px solid var(--border);
+            margin-top: 1rem;
+            line-height: 1.6;
+            text-align: left;
         }
 
-        .example-special strong { color: var(--text-primary); }
+        .how-to-row {
+            margin-bottom: 0.5rem;
+        }
+
+        .how-to-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .how-to-box strong { color: var(--text-primary); }
 
         .cmd {
             background: rgba(25,25,42,0.9);
@@ -1505,13 +1516,11 @@
             <div class="special-icon" style="background: linear-gradient(135deg, #ef4444, #f59e0b);"><i class="fas fa-palette"></i></div>
             <h3>🎨 কালারফুল ইনলাইন বাটন</h3>
             <p class="special-desc">
-                টেলিগ্রামের সাধারণ বাটনের দিন শেষ! এখন থেকে আপনি আপনার বিদায় মেসেজ, রুলস বা যেকোনো ফিল্টারে 
-                <span class="highlight">লাল, নীল এবং সবুজ</span> রঙের আকর্ষণীয় বাটন যুক্ত করতে পারবেন।
+                টেলিগ্রামের সাধারণ বিষণ্ণ বাটনের দিন শেষ! এখন থেকে আপনি আপনার বিদায় মেসেজ, রুলস বা যেকোনো অটো-ফিল্টারে চমৎকার রঙিন বাটন যুক্ত করতে পারবেন।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>সহজ নিয়ম:</strong> <span class="cmd">[নাম + লিংক + কালার]</span><br>
-                <strong>উদাহরণ:</strong> <span class="cmd">[যোগাযোগ + https://t.me/link + লাল]</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> আপনার যেকোনো বাটনে লাল, নীল বা সবুজ কালার সেট করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> টেক্সটের নিচে লিখুন <span class="cmd">[বাটনের নাম + লিংক + লাল/নীল/সবুজ]</span></div>
             </div>
         </article>
 
@@ -1520,11 +1529,11 @@
             <div class="special-icon" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);"><i class="fas fa-eraser"></i></div>
             <h3>⏳ স্মার্ট মেসেজ ডিলিট কিউ</h3>
             <p class="special-desc">
-                বটের কোনো নোটিফিকেশন বা কমান্ডের রিপ্লাই আর চ্যাট নোংরা করবে না। এটি একটি <span class="highlight">ডিলিট কিউ (Queue)</span> সিস্টেম মেইনটেইন করে যা নির্দিষ্ট সময় পর অটোমেটিক মেসেজ রিমুভ করে দেয়।
+                বটের পাঠানো মেসেজ বা মেম্বারদের দেওয়া ভুলভাল কমান্ডে আর গ্রুপ চ্যাট কখনো নোংরা হবে না। এটি ব্যাকএন্ডে একটি ডিলিট কিউ (Queue) মেইনটেইন করে।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/settings</span> → "Warn Del: 30s" সেট করুন
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> বটের নোটিফিকেশন মেসেজ নির্দিষ্ট সময় পর অটো-ডিলিট করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> গ্রুপে <span class="cmd">/settings</span> লিখে "Warn Del" বা "Info Del" টাইম সেট করুন।</div>
             </div>
         </article>
 
@@ -1533,11 +1542,11 @@
             <div class="special-icon" style="background: linear-gradient(135deg, #10b981, #059669);"><i class="fas fa-broom"></i></div>
             <h3>🧹 ডিলিট অ্যাকাউন্ট ক্লিনার</h3>
             <p class="special-desc">
-                গ্রুপে জমে থাকা নিষ্ক্রিয় <span class="highlight">Deleted Account</span> বা জম্বি মেম্বারদের এক কমান্ডে স্ক্যান করে কিক করুন। গ্রুপের কোয়ালিটি ও অ্যাক্টিভিটি রেট বাড়িয়ে নিন।
+                গ্রুপে বছরের পর বছর ধরে জমে থাকা নিষ্ক্রিয় Deleted Account বা জম্বি মেম্বারদের এক কমান্ডে খুঁজে বের করে রিমুভ করার চমৎকার সুযোগ।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/cleandeleted</span> → "✅ Cleanup Complete!"
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> গ্রুপের নিষ্ক্রিয় ডিলিট হওয়া অ্যাকাউন্টগুলো কিক করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> গ্রুপ অ্যাডমিন হিসেবে টাইপ করুন: <span class="cmd">/cleandeleted</span> বা <span class="cmd">/zombies</span></div>
             </div>
         </article>
 
@@ -1545,11 +1554,11 @@
             <div class="special-icon"><i class="fas fa-ghost"></i></div>
             <h3>👻 স্টেলথ (Ghost) মোড</h3>
             <p class="special-desc">
-                গ্রুপে কোনো মেম্বারকে ব্যান বা মিউট করলে বট আর কোনো মেসেজ দিয়ে তা সবাইকে জানাবে না। <span class="highlight">বিনা নোটিশে সাইলেন্ট পানিশমেন্ট</span> দেওয়ার দারুণ একটি ফিচার এটি।
+                গ্রুপে মেম্বার বেশি হলে কাউকে ব্যান বা মিউট করলে বটের একের পর এক মেসেজ বিরক্তির সৃষ্টি করে। এই মোড চালু থাকলে কোনো নোটিফিকেশন আসবে না।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> সেটিংস প্যানেল থেকে → <span class="cmd">👻 ঘোস্ট মোড: [চালু]</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> মেম্বারদের ব্যান/মিউট করলে গ্রুপে বটের নোটিফিকেশন হাইড রাখা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> সেটিংস প্যানেল থেকে চালু করুন → <span class="cmd">👻 ঘোস্ট মোড: [চালু]</span></div>
             </div>
         </article>
         
@@ -1557,13 +1566,11 @@
             <div class="special-icon"><i class="fas fa-user-pen"></i></div>
             <h3>📝 নাম/ইউজারনেম চেঞ্জ অ্যালার্ট</h3>
             <p class="special-desc">
-                গ্রুপের কোনো সদস্য তার <span class="highlight">First/Last Name</span> বা 
-                <span class="highlight">ইউজারনেম</span> পরিবর্তন করলে বট সাথে সাথে 
-                গ্রুপে রিয়েল-টাইম নোটিফিকেশন পাঠায়। আগের ও বর্তমান নাম উভয়ই দেখায়।
+                গ্রুপের কোনো সদস্য তার ফার্স্ট/লাস্ট নেম বা ইউজারনেম পরিবর্তন করার সাথে সাথে বট গ্রুপে তাদের আগের এবং বর্তমান নামের নোটিশ দেয়।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">"আগের নাম: X → বর্তমান: Y"</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> মেম্বারদের প্রোফাইল পরিবর্তনের রিয়েল-টাইম ট্র্যাকিং করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> এটি অটোমেটিক ব্যাকএন্ডে সচল থাকে, কোনো সেটআপ করতে হয় না।</div>
             </div>
         </article>
 
@@ -1571,11 +1578,11 @@
             <div class="special-icon"><i class="fas fa-check-double"></i></div>
             <h3>✅ অটো জয়েন অ্যাপ্রুভ</h3>
             <p class="special-desc">
-                আপনার গ্রুপে যদি Join Request সিস্টেম অন থাকে, তবে বট <span class="highlight">অটোমেটিকভাবে মেম্বারদের জয়েন রিকোয়েস্ট অ্যাক্সেপ্ট</span> করে নেবে কোনো ম্যানুয়াল এপ্রুভাল ছাড়াই।
+                গ্রুপে মেম্বার বাড়ানোর জন্য যদি Join Request সচল থাকে, তবে অ্যাডমিনদের আর ম্যানুয়ালি কষ্ট করে একটি একটি করে এপ্রুভ করতে হবে না।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> সেটিংস প্যানেল থেকে → <span class="cmd">✅ অটো এক্সেপ্ট: [চালু]</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> পেন্ডিং জয়েন রিকোয়েস্টগুলো সাথে সাথে স্বয়ংক্রিয়ভাবে এপ্রুভ করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> সেটিংস প্যানেল থেকে চালু করুন → <span class="cmd">✅ অটো এক্সেপ্ট: [চালু]</span></div>
             </div>
         </article>
 
@@ -1583,11 +1590,11 @@
             <div class="special-icon"><i class="fas fa-moon-stars"></i></div>
             <h3>🌙 অটো-লক (Night Mode)</h3>
             <p class="special-desc">
-                রাতের নির্দিষ্ট সময়ে গ্রুপ অটো-লক, সকালে অটো আনলক। ২৪ ঘণ্টা (24-Hour Format) ব্যবহার করে <span class="highlight">কাস্টম সময়</span> সেট করা যায় খুব সহজেই।
+                রাতের নির্দিষ্ট সময়ে গ্রুপ স্বয়ংক্রিয়ভাবে লক করে দিন যাতে কেউ স্প্যাম করতে না পারে এবং সকাল হলে নিজে নিজেই আবার গ্রুপ আনলক হয়ে যাবে।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/setautolock 23 06</span> → রাত ১১টা → সকাল ৬টা লক
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> নির্দিষ্ট সময়ে গ্রুপ নিজে নিজে লক ও আনলক করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> টাইপ করুন: <span class="cmd">/setautolock 23 06</span> (রাত ১১টায় লক, সকাল ৬টায় আনলক)</div>
             </div>
         </article>
 
@@ -1595,12 +1602,11 @@
             <div class="special-icon"><i class="fas fa-user-shield"></i></div>
             <h3>👤 প্রোফাইল লিংক সিকিউরিটি</h3>
             <p class="special-desc">
-                কারো নাম বা বায়োতে স্প্যাম/প্রোমোশনাল লিংক থাকলে বট 
-                <span class="highlight">অটো-স্ক্যান</span> করে স্বয়ংক্রিয়ভাবে তাকে কাস্টম টাইমের জন্য মিউট করে দেয়।
+                অনেকেই গ্রুপে জয়েন করে তাদের নাম বা বায়োতে বিভিন্ন স্প্যাম বা প্রমোশনাল লিংক ঝুলিয়ে রাখে। বট তাদের গ্রুপে মেসেজ দেওয়া মাত্রই ব্লক করবে।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/setlinkmute 30m</span> → লিংক থাকলে ৩০ মিনিট মিউট
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> প্রোফাইলে লিংক থাকা ইউজারদের অটোমেটিক মিউট করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> গ্রুপে টাইপ করুন: <span class="cmd">/setlinkmute 10m</span> (লিংক থাকলে ১০ মিনিট মিউট)</div>
             </div>
         </article>
 
@@ -1608,11 +1614,11 @@
             <div class="special-icon"><i class="fas fa-chart-simple"></i></div>
             <h3>🏆 অ্যাক্টিভিটি ট্র্যাকার অ্যানালিটিক্স</h3>
             <p class="special-desc">
-                মেম্বারদের মেসেজ কাউন্ট করে বট অটোমেটিক ডেটা কালেক্ট করে। <span class="highlight">টপ অ্যাক্টিভ</span> এবং <span class="highlight">টপ ইনঅ্যাক্টিভ</span> ইউজারদের র‍্যাংকিং দেখতে পারবেন।
+                গ্রুপের কোন মেম্বার সবচেয়ে বেশি একটিভ এবং কারা একদম কোনো মেসেজ দেয় না তাদের লাইভ র‍্যাংকিং ডাটাবেজ থেকে সরাসরি দেখা যায়।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/active</span> বা <span class="cmd">/inactive</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> টপ ১০ একটিভ ও ইনএকটিভ মেম্বারদের তালিকা দেখা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> গ্রুপে টাইপ করুন: <span class="cmd">/active</span> অথবা <span class="cmd">/inactive</span></div>
             </div>
         </article>
         
@@ -1620,11 +1626,11 @@
             <div class="special-icon"><i class="fas fa-person-walking-arrow-loop-left"></i></div>
             <h3>💤 AFK (ব্যস্ত) সিস্টেম</h3>
             <p class="special-desc">
-                আপনি ব্যস্ত থাকলে AFK মোড চালু করুন। কেউ আপনাকে গ্রুপে মেনশন করলে বট <span class="highlight">অটো-রিপ্লাই</span> দিয়ে তাকে জানিয়ে দেবে আপনি এখন ব্যস্ত এবং কী কারণে ব্যস্ত।
+                আপনি যখন পড়াশোনা বা অন্য কাজে ব্যস্ত থাকবেন, তখন গ্রুপে আপনার অনুপস্থিতি ও ব্যস্ততার কারণ বটকে দিয়ে অটোমেটিক বলিয়ে নিতে পারবেন।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/afk আমি এখন ঘুমাচ্ছি</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> কেউ আপনাকে ট্যাগ করলে আপনার ব্যস্ততার কারণ মেম্বারকে জানানো।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> গ্রুপে টাইপ করুন: <span class="cmd">/afk আমি এখন ঘুমাবো</span></div>
             </div>
         </article>
 
@@ -1632,37 +1638,37 @@
             <div class="special-icon"><i class="fas fa-bullhorn"></i></div>
             <h3>📢 স্মার্ট ট্যাগ অল (Tag All)</h3>
             <p class="special-desc">
-                অ্যাডমিনরা গ্রুপের সব সদস্যকে একসাথে মেনশন করতে পারবেন। এটি <span class="highlight">অ্যান্টি-স্প্যাম লিমিটেশন</span> মেইনটেইন করে একসাথে ৩০ জন করে মেনশন পাঠায়।
+                গ্রুপের যেকোনো নোটিশ বা জরুরি ঘোষণায় গ্রুপের সকল মেম্বারকে এক ক্লিকে ট্যাগ করুন। এটি প্রতিবার ৩০ জন করে লিমিট মেনে মেনশন পাঠায়।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/tagall 📢 জরুরি নোটিশ</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> কোনো স্প্যাম লিমিটেশন ছাড়াই গ্রুপ মেম্বারদের একত্রে মেনশন করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> গ্রুপে টাইপ করুন: <span class="cmd">/tagall [আপনার জরুরি নোটিশ]</span></div>
             </div>
         </article>
 
         <article class="special-card">
             <div class="badge-new">NEW</div>
             <div class="special-icon" style="background: linear-gradient(135deg, #10b981, #3b82f6);"><i class="fas fa-user-check"></i></div>
-            <h3>🛡️ মেম্বার ভেরিফিকেশন (Captcha)</h3>
+            <h3>🛡️ মেম্বার ভেরিফাই (Captcha Verification)</h3>
             <p class="special-desc">
-                গ্রুপে জয়েন করা স্প্যাম বট এবং ফেক ইউজারদের স্থায়ী সমাধান! নতুন মেম্বার জয়েন করলে বট তাকে মিউট করে রাখবে যতক্ষণ না সে <span class="highlight">ভেরিফাই করুন</span> বাটনে ক্লিক করবে।
+                গ্রুপ জয়েনিং স্প্যাম প্রতিরোধে চরম কার্যকরী সমাধান! গ্রুপে কোনো ইউজার জয়েন করলে বট তাকে সম্পূর্ণ মিউট করে রাখবে যতক্ষণ না সে মানুষ তা প্রমাণ করবে।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> সেটিংস প্যানেল থেকে → <span class="cmd">🛡️ মেম্বার ভেরিফাই: [চালু]</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> স্প্যাম বট ও রোবট অ্যাকাউন্টকে গ্রুপে জয়েন করা মাত্রই ব্লক করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> সেটিংস প্যানেল থেকে বাটনটি অন করুন → <span class="cmd">🛡️ মেম্বার ভেরিফাই: [চালু]</span></div>
             </div>
         </article>
 
         <article class="special-card">
             <div class="badge-new">NEW</div>
             <div class="special-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"><i class="fas fa-flag"></i></div>
-            <h3>⚠️ ইনস্ট্যান্ট রিপোর্ট সিস্টেম</h3>
+            <h3>⚠️ ইনস্ট্যান্ট রিপোর্ট সিস্টেম (Report Admin)</h3>
             <p class="special-desc">
-                গ্রুপের যেকোনো মেম্বার আপত্তিকর মেসেজের রিপ্লাইয়ে <span class="highlight">/report</span> বা <span class="highlight">report</span> লিখলে বট সেটি সাথে সাথে অ্যাডমিনদের ট্যাগ করে নোটিফাই করবে।
+                অ্যাডমিনদের অনুপস্থিতিতে সাধারণ মেম্বাররাই গ্রুপকে পরিচ্ছন্ন রাখতে সাহায্য করবে। কেউ স্প্যাম দেখলে এক কমান্ডে সব অ্যাডমিনকে সজাগ করতে পারবে।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> মেসেজে রিপ্লাই দিয়ে লিখুন → <span class="cmd">/report</span>
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> স্প্যাম মেসেজকে চিহ্নিত করে অ্যাডমিনদের গ্রুপে বা ইনবক্সে নোটিফাই করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> যেকোনো স্প্যাম মেসেজের রিপ্লাইয়ে গিয়ে লিখুন: <span class="cmd">/report</span> বা <span class="cmd">report</span></div>
             </div>
         </article>
 
@@ -1671,11 +1677,11 @@
             <div class="special-icon" style="background: linear-gradient(135deg, #6366f1, #a855f7);"><i class="fas fa-user-tie"></i></div>
             <h3>👮 কাস্টম অ্যাডমিন খেতাব ও ট্রিগার</h3>
             <p class="special-desc">
-                বটের ইনবক্স থেকে অ্যাডমিনদের কাস্টম তালিকা ও টাইটেল (যেমন: ওনার, মডারেটর) সেট করুন। সাধারণ মেম্বাররা শুধু <span class="highlight">admin</span> বা <span class="highlight">অ্যাডমিন</span> লিখলেই এই তালিকাটি দেখতে পাবে।
+                টেলিগ্রামের ডিফল্ট অ্যাডমিন লিস্টের বাইরেও আপনার গ্রুপের দায়িত্বপ্রাপ্ত ও বিশেষ মডারেটরদের কাস্টম খেতাবসহ (যেমন: ওনার, মডারেটর) সাজাতে পারবেন।
             </p>
-            <div class="example-special">
-                <i class="fas fa-lightbulb"></i> 
-                <strong>উদাহরণ:</strong> <span class="cmd">/setadmins</span> অথবা ইনবক্স থেকে সেটিংস
+            <div class="how-to-box">
+                <div class="how-to-row">🎯 <strong>কাজ:</strong> মেম্বাররা শুধু 'admin' বা 'অ্যাডমিন' লিখলে কাস্টম তালিকাটি প্রদর্শন করা।</div>
+                <div class="how-to-row">⚙️ <strong>ব্যবহার:</strong> গ্রুপে <span class="cmd">/settings</span> লিখে প্রাইভেট প্যানেলের <span class="cmd">👮 কাস্টম অ্যাডমিন সেট</span> বাটনে ক্লিক করে তালিকাটি দিন।</div>
             </div>
         </article>
     </div>
@@ -1730,7 +1736,7 @@
         <div class="other-card">
             <div class="other-header">
                 <div class="other-icon"><i class="fas fa-hourglass-end"></i></div>
-                <h4>⏱ স্মার্ট টাইমড ব্যান</h4>
+                <h4>⏱ スマート টাইমড ব্যান</h4>
             </div>
             <p class="other-desc">নির্দিষ্ট সময়ের জন্য ইউজারকে ব্যান করার সুবিধা। সময় শেষে অটো-আনব্যান হয়ে যাবে।</p>
             <div class="example-box"><i class="fas fa-code"></i> <span class="cmd">/ban @user 2h</span> (২ ঘণ্টা ব্যান)</div>
@@ -1970,7 +1976,7 @@
 
     <section class="channel-section">
         <i class="fas fa-bell"></i>
-        <h3>📢 অফিসিয়াল আপডেট চ্যানেল</h3>
+        <h3>📢  অফিসিয়াল আপডেট চ্যানেল</h3>
         <p>নতুন ফিচার, টিউটোরিয়াল, সার্ভার আপডেট ও ২৪/৭ সাপোর্ট পেতে যুক্ত থাকুন:</p>
         <a href="https://t.me/alorhawa" class="channel-link" target="_blank">
             <i class="fab fa-telegram"></i>
